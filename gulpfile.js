@@ -52,7 +52,9 @@ gulp.task('frontend',['html'], function(){
             loaders: [
                 { test: /\.js$/, loader: 'babel?presets=stage-1' },
                 { test: /\.jsx$/, loader: 'babel?presets=stage-1!msx-loader' },
-                { test: /\.styl$/, loader: 'style!css!stylus' }
+                { test: /\.styl$/, loader: 'style!css!stylus' },
+                { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+                { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
             ]
         },
         plugins:[
@@ -100,7 +102,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
         },
         //proxy: 'http://localhost:' + config.PORT, // informs browser-sync to proxy our koa app which would run at the following location
         port: 4000, // informs browser-sync to use the following port for the proxied app notice that the default port is 3000, which would clash with our koa
-        plugins: ['bs-fullscreen-message', 'bs-latency'],
+        plugins: ['bs-latency'],
         browser: ['google-chrome'] // open the proxied app in chrome
     });
 

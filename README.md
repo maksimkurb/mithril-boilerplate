@@ -11,11 +11,12 @@ Contains the following
 |--------------|-------------------------------------------------------------------------------------------------------------|
 | Axis         | Stylus CSS Framework                                                                                        |
 | Babel        | ES6 -> ES5 transpiler                                                                                       |
-| msx          | JSX for Mithril                                                                                             |
 | Browser-Sync | Keep multiple tabs in sync and live reloading on content changes                                            |
+| FontAwesome  | Awesome icon pack                                                                                           |
 | Gulp         | Task Runner                                                                                                 |
 | Jeet         | Stylus Grid System                                                                                          |
 | Mithril      | Virtual DOM rendering/diff MVC micro-framework                                                              |
+| msx          | JSX for Mithril                                                                                             |
 | WebPack      | Converts both frontend & backend single files with support for Stylus to css conversion, minification, etc. |
 | Koa          | Web framework                                                                                               |
 
