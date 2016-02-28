@@ -50,7 +50,8 @@ gulp.task('frontend',['html'], function(){
         },
         module: {
             loaders: [
-                { test: /\.js$/, loader: 'babel', query: {presets:['stage-1']} },
+                { test: /\.js$/, loader: 'babel?presets=stage-1' },
+                { test: /\.jsx$/, loader: 'babel?presets=stage-1!msx-loader' },
                 { test: /\.styl$/, loader: 'style!css!stylus' }
             ]
         },
@@ -80,7 +81,7 @@ gulp.task('backend',function(){
         target: 'node',
         externals: nodeModules,
         output:{ filename:'server.js' },
-        module: { loaders: [ { test: /\.js$/, loader: 'babel', query: {presets:['stage-1']} } ]},
+        module: { loaders: [ { test: /\.js$/, loader: 'babel?presets=stage-1'} ]},
         plugins:[ new webpack.NoErrorsPlugin() ],
         devtool:'source-map'
     };

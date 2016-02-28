@@ -4,4 +4,4 @@ let css = require('../stylus/main.styl'),
     appDiv = document.getElementById('app');
 
 
-require('./app')(appDiv);
+require('./app.jsx')(appDiv);
