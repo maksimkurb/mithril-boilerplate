@@ -15,7 +15,7 @@ gulp.task('nodemon', ['backend','frontend'], function (callback) {
     var called = false;
     return nodemon({
 
-        // nodemon our expressjs server
+        // nodemon our koa server
         script: 'build/server.js',
 
         // watch core server file(s) that require server restart on change
@@ -50,7 +50,7 @@ gulp.task('frontend',['html'], function(){
         },
         module: {
             loaders: [
-                { test: /\.js$/, loader: 'babel?stage=1'},
+                { test: /\.js$/, loader: 'babel', query: {presets:['stage-1']} },
                 { test: /\.styl$/, loader: 'style!css!stylus' }
             ]
         },
@@ -80,7 +80,7 @@ gulp.task('backend',function(){
         target: 'node',
         externals: nodeModules,
         output:{ filename:'server.js' },
-        module: { loaders: [ { test: /\.js$/, loader: 'babel?stage=1'} ]},
+        module: { loaders: [ { test: /\.js$/, loader: 'babel', query: {presets:['stage-1']} } ]},
         plugins:[ new webpack.NoErrorsPlugin() ],
         devtool:'source-map'
     };
@@ -94,9 +94,13 @@ gulp.task('backend',function(){
 gulp.task('browser-sync', ['nodemon'], function () {
     browserSync.init({ // for more browser-sync config options: http://www.browsersync.io/docs/options/
         files: ['build/public/**/*.*'], // watch the following files; changes will be injected (css & images) or cause browser to refresh
-        proxy: 'http://localhost:' + config.DEVLOPEMENT_PORT, // informs browser-sync to proxy our expressjs app which would run at the following location
-        port: 4000, // informs browser-sync to use the following port for the proxied app notice that the default port is 3000, which would clash with our expressjs
-        browser: ['google chrome'] // open the proxied app in chrome
+        server: {
+          baseDir: 'build/public/'
+        },
+        //proxy: 'http://localhost:' + config.PORT, // informs browser-sync to proxy our koa app which would run at the following location
+        port: 4000, // informs browser-sync to use the following port for the proxied app notice that the default port is 3000, which would clash with our koa
+        plugins: ['bs-fullscreen-message', 'bs-latency'],
+        browser: ['google-chrome'] // open the proxied app in chrome
     });
 
     gulp.watch('source/backend/**/*', ['backend']);
@@ -104,7 +108,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
 });
 
 gulp.task('clean', function(cb) {
-    del(['build'], cb);
+    return del(['build'], cb);
 });
 
 gulp.task('default', gulpSequence('clean','browser-sync'));

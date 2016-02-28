@@ -1,3 +1,5 @@
+prod = process.env.NODE_ENV == "production";
+
 module.exports = {
-    DEVLOPEMENT_PORT : 3333
+    PORT: 8000
 };
