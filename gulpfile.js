@@ -9,7 +9,17 @@ var fs = require('fs'),
     del = require('del'),
     browserSync = require('browser-sync'),
     BROWSER_SYNC_RELOAD_DELAY = 500, // we'd need a slight delay to reload browsers connected to browser-sync after restarting nodemon
-    config = require('./config');
+    config = require('./config'),
+    // PostCSS plugins
+    postcssImport = require('postcss-import'),
+    postcssUrl = require("postcss-url"),
+    postcssNesting = require('postcss-nesting'),
+    postcssMixins = require('postcss-sassy-mixins'),
+    postcssVariables = require('postcss-advanced-variables'),
+    postcssLost = require("lost"),
+    postcssAt2x = require('postcss-at2x'),
+    postcssAutoprefixer = require('autoprefixer'),
+    postcssMqPacker = require("css-mqpacker");
 
 gulp.task('nodemon', ['backend','frontend'], function (callback) {
     var called = false;
@@ -52,13 +62,28 @@ gulp.task('frontend',['html'], function(){
             loaders: [
                 { test: /\.js$/, loader: 'babel?presets=stage-1' },
                 { test: /\.jsx$/, loader: 'babel?presets=stage-1!msx-loader' },
-                { test: /\.styl$/, loader: 'style!css!stylus' },
+                { test: /\.(css|pcss)$/, loader: 'style!css!postcss' },
                 { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
                 { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
             ]
         },
         plugins:[
             new webpack.NoErrorsPlugin()
+        ],
+        postcss: [
+          postcssImport({
+            path: [
+              'node_modules/font-awesome/fonts'
+            ]
+          }),
+          postcssUrl(),
+          postcssNesting(),
+          postcssMixins(),
+          postcssVariables(),
+          postcssLost(),
+          postcssAt2x(),
+          postcssAutoprefixer({ browsers: ['last 2 versions'] }),
+          postcssMqPacker()
         ],
         devtool:'source-map'
     };

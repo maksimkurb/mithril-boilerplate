@@ -1,0 +1,14 @@
+@import "font-awesome";
+@import "normalize.css";
+@import 'kube/kube.css';
+
+section {
+  lost-center: 980px;
+  lost-align: horizontal;
+
+  & > div {
+    background-color: #eee;
+    padding: 5em;
+  }
+
+}

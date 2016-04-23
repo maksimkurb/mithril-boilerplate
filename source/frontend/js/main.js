@@ -1,6 +1,6 @@
 "use strict";
 
-let css = require('../stylus/main.styl'),
+let css = require('../css/main.css'),
     appDiv = document.getElementById('app');
 
 

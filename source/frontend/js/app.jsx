@@ -49,28 +49,30 @@ todo.controller = function() {
 //here's the view
 todo.view = function() {
     return (
-      <div className="container">
-        <h1>Todo Sample</h1>
-        <input
-          onchange={m.withAttr('value', todo.vm.description)}
-          value={todo.vm.description()}
-        />
-        <button onclick={todo.vm.add}>Add</button>
-        <table>
-          {todo.vm.list.map(function(task, index) {
-              return (
-                <tr>
-                  <td>
-                    <input type='checkbox' onclick={m.withAttr('checked', task.done)} checked={task.done()}/>
-                  </td>
-                  <td style={{textDecoration: task.done() ? "line-through" : "none"}}>
-                    {task.description()}
-                  </td>
-                </tr>
-              )
-            })}
-        </table>
-      </div>
+      <section>
+        <div>
+          <h1>Todo Sample</h1>
+          <input
+            onchange={m.withAttr('value', todo.vm.description)}
+            value={todo.vm.description()}
+          />
+          <button onclick={todo.vm.add}>Add</button>
+          <table>
+            {todo.vm.list.map(function(task, index) {
+                return (
+                  <tr>
+                    <td>
+                      <input type='checkbox' onclick={m.withAttr('checked', task.done)} checked={task.done()}/>
+                    </td>
+                    <td style={{textDecoration: task.done() ? "line-through" : "none"}}>
+                      {task.description()}
+                    </td>
+                  </tr>
+                )
+              })}
+          </table>
+        </div>
+      </section>
     )
 };
 
